@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db:
+    image: postgres:16.2-bullseye
+    restart: always
+    volumes:
+      - ./db:/var/lib/postgresql 
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example123
+      POSTGRES_DB: adsficr
+
+  web:
+    image: node:20-buster
+    restart: always
+    ports:
+      - 80:3000
+    working_dir: /home/app
+    volumes:
+      - .:/home/app
+    command: npm install && npm start
